@@ -29,10 +29,8 @@ const COLUMNS: { id: JobStatus; title: string }[] = [
 
 export function KanbanBoard({ searchQuery, filterType }: KanbanBoardProps) {
   const { data: jobs, isLoading } = useJobs();
-  const { mutate: updateStatus } = useUpdateJobStatus(); // Ambil fungsi mutate
+  const { mutate: updateStatus } = useUpdateJobStatus();
 
-  // Sensor untuk mendeteksi mouse/touch
-  // activationConstraint: butuh geser 5px baru dianggap drag (supaya tombol di card tetap bisa diklik)
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -41,19 +39,13 @@ export function KanbanBoard({ searchQuery, filterType }: KanbanBoardProps) {
     })
   );
 
-  // === LOGIKA FILTERING (SENIOR PART) ===
-  // Kita filter data SEBELUM dimapping ke kolom.
-  // Gunakan useMemo jika data sangat besar, tapi untuk <1000 items, filter biasa sangat cepat.
-  
   const filteredJobs = jobs?.filter((job) => {
-    // 1. Text Search (Case Insensitive)
     const query = searchQuery.toLowerCase();
     const matchesSearch = 
       job.company_name.toLowerCase().includes(query) || 
       job.position.toLowerCase().includes(query) ||
-      job.tags?.some(tag => tag.toLowerCase().includes(query)); // Cari di tags juga!
+      job.tags?.some(tag => tag.toLowerCase().includes(query));
 
-    // 2. Type Filter
     const matchesType = 
       filterType === "ALL" || 
       job.job_type === filterType;
@@ -61,19 +53,16 @@ export function KanbanBoard({ searchQuery, filterType }: KanbanBoardProps) {
     return matchesSearch && matchesType;
   });
 
-  // Fungsi saat kartu dilepas
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (!over) return; // Jika dilepas di tempat kosong (bukan di kolom)
+    if (!over) return;
 
     const jobId = active.id as string;
     const newStatus = over.id as JobStatus;
 
-    // Cari job yang sedang didrag
     const job = jobs?.find((j) => j.id === jobId);
 
-    // Hanya update jika statusnya benar-benar berubah
     if (job && job.status !== newStatus) {
       updateStatus({ jobId, newStatus });
     }

@@ -10,7 +10,7 @@ interface DroppableColumnProps {
 
 export function DroppableColumn({ id, title, count, children }: DroppableColumnProps) {
   const { setNodeRef, isOver } = useDroppable({
-    id: id, // ID kolom = Status (WISHLIST, APPLIED, dll)
+    id: id,
   });
 
   return (

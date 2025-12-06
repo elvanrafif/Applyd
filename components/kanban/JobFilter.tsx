@@ -10,14 +10,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils"; // Import cn untuk merging class
+import { cn } from "@/lib/utils";
 
 interface JobFilterProps {
   searchQuery: string;
   setSearchQuery: (value: string) => void;
   filterType: string;
   setFilterType: (value: string) => void;
-  className?: string; // Tambahkan prop className
+  className?: string;
 }
 
 export function JobFilter({ 
@@ -37,7 +37,6 @@ export function JobFilter({
 
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      {/* 1. Search Bar - Flex Grow agar memenuhi ruang */}
       <div className="relative flex-1">
         <Search className="absolute left-2 top-2.5 h-4 w-4 text-slate-400" />
         <Input
@@ -48,7 +47,6 @@ export function JobFilter({
         />
       </div>
 
-      {/* 2. Filter Dropdown (Job Type) - Ukuran tetap */}
       <Select value={filterType} onValueChange={setFilterType}>
         <SelectTrigger className="w-[110px] sm:w-[130px] h-9 bg-slate-50 border-slate-200 text-xs sm:text-sm">
           <SelectValue placeholder="Type" />
@@ -61,11 +59,10 @@ export function JobFilter({
         </SelectContent>
       </Select>
 
-      {/* 3. Reset Button */}
       {isFiltered && (
         <Button 
           variant="ghost" 
-          size="icon" // Ubah jadi icon only biar hemat tempat
+          size="icon" 
           onClick={handleReset}
           className="h-9 w-9 text-slate-500 hover:text-slate-700 shrink-0"
         >

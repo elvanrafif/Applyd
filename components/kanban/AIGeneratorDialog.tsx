@@ -1,9 +1,4 @@
 'use client';
-
-// Ganti useCompletion (Vercel) dengan fetch biasa agar lebih mudah kontrol body ke Gemini
-// ATAU gunakan useCompletion tapi sesuaikan endpoint.
-// Cara paling mudah dengan setup API route kita tadi adalah manual fetch streaming.
-
 import { useState } from 'react';
 import { Copy, Sparkles, Loader2, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -44,7 +39,6 @@ export function AIGeneratorDialog({ open, onOpenChange, job }: AIGeneratorDialog
 
       if (!response.ok) throw new Error("AI Error");
 
-      // Handle Streaming Response manual agar smooth
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 

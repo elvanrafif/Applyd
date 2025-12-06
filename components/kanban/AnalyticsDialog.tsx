@@ -9,8 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Job, JobStatus } from "@/types";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Trophy, XCircle, Activity } from "lucide-react"; // Ganti icon biar lebih fresh
+import { Briefcase, Trophy, XCircle, Activity } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface AnalyticsDialogProps {
@@ -50,7 +49,6 @@ export function AnalyticsDialog({ open, onOpenChange, jobs }: AnalyticsDialogPro
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[95vw] sm:max-w-[700px] max-h-[85vh] overflow-y-auto p-0 gap-0 overflow-hidden rounded-xl">
         
-        {/* HEADER: Dibuat lebih clean dengan background soft */}
         <div className="px-6 py-4 border-b bg-slate-50/50">
           <DialogHeader>
             <DialogTitle className="text-xl">Dashboard Overview</DialogTitle>
@@ -62,8 +60,6 @@ export function AnalyticsDialog({ open, onOpenChange, jobs }: AnalyticsDialogPro
 
         <div className="p-6 space-y-6">
           
-          {/* SECTION 1: NEW SUMMARY CARDS LAYOUT */}
-          {/* Menggunakan Grid 2 kolom, tapi dengan styling Horizontal yang lebih lega */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <StatItem 
               title="Total Applications" 
@@ -91,10 +87,8 @@ export function AnalyticsDialog({ open, onOpenChange, jobs }: AnalyticsDialogPro
             />
           </div>
 
-          {/* SECTION 2: CHARTS */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            {/* Chart 1 */}
             <div className="border rounded-xl p-4 shadow-sm bg-white">
               <h3 className="text-sm font-semibold text-slate-800 mb-4">Status Distribution</h3>
               <div className="h-[200px] w-full">
@@ -128,11 +122,9 @@ export function AnalyticsDialog({ open, onOpenChange, jobs }: AnalyticsDialogPro
               </div>
             </div>
 
-            {/* Chart 2 */}
             <div className="border rounded-xl p-4 shadow-sm bg-white">
                <h3 className="text-sm font-semibold text-slate-800 mb-4">Offer Success Rate</h3>
                <div className="flex flex-col items-center justify-center h-[200px] relative">
-                  {/* Lingkaran Background */}
                   <svg className="h-40 w-40 transform -rotate-90">
                     <circle cx="80" cy="80" r="70" stroke="#f1f5f9" strokeWidth="10" fill="transparent" />
                     <circle 
@@ -148,7 +140,6 @@ export function AnalyticsDialog({ open, onOpenChange, jobs }: AnalyticsDialogPro
                     />
                   </svg>
                   
-                  {/* Teks Tengah */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <span className="text-4xl font-extrabold text-slate-900">{successRate}<span className="text-lg text-slate-400">%</span></span>
                     <span className="text-xs uppercase font-bold tracking-wider text-slate-400 mt-1">Conversion</span>
@@ -163,16 +154,13 @@ export function AnalyticsDialog({ open, onOpenChange, jobs }: AnalyticsDialogPro
   );
 }
 
-// COMPONENT BARU: Stat Item yang lebih cantik
 function StatItem({ title, value, icon, bgClass }: { title: string, value: number, icon: React.ReactNode, bgClass: string }) {
   return (
     <div className="flex items-center p-4 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200">
-      {/* Kolom Kiri: Icon dengan Background Bulat */}
       <div className={cn("flex-shrink-0 p-3 rounded-full mr-4", bgClass)}>
         {icon}
       </div>
       
-      {/* Kolom Kanan: Teks */}
       <div>
         <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-0.5">{title}</p>
         <h4 className="text-2xl font-bold text-slate-900 leading-none">{value}</h4>
